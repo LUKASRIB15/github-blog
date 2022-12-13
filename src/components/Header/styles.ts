@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import banner from "../../public/Cover.svg"
+import banner from "../../../public/Cover.svg"
 
 export const LayoutHeader = styled.header`
     width: 100%;
