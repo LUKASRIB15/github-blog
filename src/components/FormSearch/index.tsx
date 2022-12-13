@@ -1,6 +1,6 @@
 import { InputFormSearch, HeaderFormSearch, LayoutFormSearch } from "./styles";
 
-export function FormSeacrh(){
+export function FormSearch(){
     return(
         <LayoutFormSearch>
             <HeaderFormSearch>
