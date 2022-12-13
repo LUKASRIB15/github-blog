@@ -1,10 +1,14 @@
 import { Header } from "../../components/Header"
+import { Profile } from "../../components/Profile"
+import { LayoutMainHome } from "./styles"
 
 export function Home(){
     return(
         <div>
             <Header/>
-            <h1>Home</h1>
+            <LayoutMainHome>
+                <Profile/>
+            </LayoutMainHome>
         </div>
     )
 }
