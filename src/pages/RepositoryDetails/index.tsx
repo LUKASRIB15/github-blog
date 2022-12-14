@@ -1,3 +1,10 @@
+import { CardRepository } from "../../components/CardRepository";
+import { LayoutMainRepositoryDetails } from "./styles";
+
 export function RepositoryDetails(){
-    return <h1>RepositoryDetails</h1>
+    return(
+        <LayoutMainRepositoryDetails>
+            <CardRepository/>
+        </LayoutMainRepositoryDetails>
+    )
 }

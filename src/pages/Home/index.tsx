@@ -1,5 +1,4 @@
 import { FormSearch } from "../../components/FormSearch"
-import { Header } from "../../components/Header"
 import { Profile } from "../../components/Profile"
 import { CardList, CardRepository, HeaderCard, LayoutMainHome, MainCard } from "./styles"
 
