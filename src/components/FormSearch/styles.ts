@@ -3,6 +3,7 @@ import styled from "styled-components"
 export const LayoutFormSearch = styled.div`
     width: 100%;
     margin-top: 4.5rem;
+    margin-bottom: 3rem;
 `
 
 export const HeaderFormSearch = styled.header`
