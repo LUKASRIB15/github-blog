@@ -5,8 +5,6 @@ import { CardList, CardRepository, HeaderCard, LayoutMainHome, MainCard } from "
 
 export function Home(){
     return(
-        <div>
-            <Header/>
             <LayoutMainHome>
                 <Profile/>
                 <FormSearch/>
@@ -78,6 +76,5 @@ export function Home(){
                     </CardRepository>
                 </CardList>
             </LayoutMainHome>
-        </div>
     )
 }
