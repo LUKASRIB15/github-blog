@@ -50,4 +50,12 @@ export const MainCardRepository = styled.main`
         gap: 0.5rem;
         align-items: center;
     }
+
+    @media(max-width: 540px){
+        font-size: 0.875rem;
+    }
+
+    @media(max-width:504px){
+        font-size: 0.75rem;
+    }
 `
