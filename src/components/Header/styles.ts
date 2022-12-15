@@ -14,4 +14,5 @@ export const LayoutHeader = styled.header`
     right: 0;
     text-align: center;
     top: 0;
+
 `
