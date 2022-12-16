@@ -51,6 +51,7 @@ export const LayoutMainHome = styled.main`
 export const CardRepository = styled.div`
     padding: 2rem;
     width: 39.9%;
+    height: 260px;
 
     background-color: ${props=>props.theme["base-post"]};
     border-radius: 10px;
@@ -67,6 +68,10 @@ export const CardRepository = styled.div`
         width: 100%;
     }
 
+    a{
+        text-decoration: none;
+    }
+
 `
 export const HeaderCard = styled.header`
     display: grid;
@@ -76,6 +81,7 @@ export const HeaderCard = styled.header`
 
     strong{
         font-size: 1.25rem;
+        color: ${props=>props.theme["base-title"]};
     }
 
     span{
@@ -86,6 +92,14 @@ export const HeaderCard = styled.header`
 `
 export const MainCard = styled.main`
     color: ${props=>props.theme["base-text"]};
+
+    p{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;     /* fallback */
+        -webkit-line-clamp: 4; /* number of lines to show */
+        -webkit-box-orient: vertical;
+    }
 `
 export const CardList = styled.main`
     display: flex;

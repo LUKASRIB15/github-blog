@@ -2,41 +2,57 @@ import { FooterProfile, HeaderProfile, ImageProfile, LayoutProfile, MainProfile 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from "@fortawesome/free-brands-svg-icons"
 import { faArrowUpRightFromSquare, faBuilding, faUserGroup } from '@fortawesome/free-solid-svg-icons'
+import { BlogContext } from "../../contexts/BlogContext";
+import { useContext, useEffect } from "react";
 
 export function Profile(){
+    const {profile, getApiGithubUser} = useContext(BlogContext)
+
+    useEffect(()=>{
+        getApiGithubUser()
+    },[])
     return(
-        <LayoutProfile>
+        <>
+        {profile.map(user=>{
+            return(
+                <LayoutProfile>
             <aside>
-                <ImageProfile src="https://github.com/LUKASRIB15.png"/>
+                <ImageProfile src={user.avatar_url}/>
             </aside>
             <main>
                 <HeaderProfile>
-                    <strong>Lucas Ribeiro</strong>
+                    <strong>{user.name}</strong>
                     <a href="#">
                         github
                         <FontAwesomeIcon icon={faArrowUpRightFromSquare}/>
                     </a>
                 </HeaderProfile>
                 <MainProfile>
-                    Desenvolvedor full-stack! Em busca de me especializar 
-                    cada vez mais em JavaScript e React! Conheça um pouco
-                    dos meus projetos!
+                    {user.bio}
                 </MainProfile>
                 <FooterProfile>
                     <span>
                         <FontAwesomeIcon icon={faGithub} color="#3A536B"/>
-                        LUKASRIB15
+                        {user.login}
                     </span>
                     <span>
                         <FontAwesomeIcon icon={faBuilding} color="#3A536B"/>
-                        Nenhuma
+                        {
+                            !user.company ?
+                                <span>Nenhuma</span>
+                            :
+                                <span>{user.company}</span>      
+                        }
                     </span>
                     <span>
                         <FontAwesomeIcon icon={faUserGroup} color="#3A536B"/>
-                        2 seguidores
+                        {user.followers} seguidores
                     </span>
                 </FooterProfile>
             </main>
         </LayoutProfile>
+            )
+        })}
+        </>
     )
 }
