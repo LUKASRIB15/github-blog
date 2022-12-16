@@ -5,6 +5,9 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { BlogContext } from "../../contexts/BlogContext";
+import { formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR"
+
 export function CardRepository(){
     const {listCards, profile, repositoryId} = useContext(BlogContext)
     return(
@@ -12,6 +15,9 @@ export function CardRepository(){
                 {listCards.map(
                     repositoryDetails=>{
                         if(repositoryDetails.id == repositoryId){
+                            const publishedDateRelativeToNow = formatDistanceToNow(new Date(repositoryDetails.created_at),{
+                                locale: ptBR,
+                            })
                             return(
                                 <>
                                 <MenuCardRepository>
@@ -32,7 +38,7 @@ export function CardRepository(){
                                     </span>
                                     <span>
                                         <FontAwesomeIcon color="#3A536B"icon={faCalendarDay}/>
-                                        {repositoryDetails.created_at}
+                                        Há {publishedDateRelativeToNow}
                                     </span>
                                     <span>
                                         <FontAwesomeIcon color="#3A536B"icon={faComment}/>
