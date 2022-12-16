@@ -19,7 +19,7 @@ export function CardRepository(){
                                         <FontAwesomeIcon icon={faChevronLeft}/>
                                         Voltar
                                     </NavLink>
-                                    <a href={"https://github.com/" + profile[0].login +"/" + repositoryDetails.name} target="_blank">
+                                    <a href={"https://github.com/" + profile[0].login +"/" + repositoryDetails.name}>
                                         Ver no github
                                         <FontAwesomeIcon icon={faArrowUpRightFromSquare}/>
                                     </a>
