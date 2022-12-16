@@ -5,27 +5,38 @@ import {useForm} from "react-hook-form"
 import { BlogContext } from "../../contexts/BlogContext";
 import { useContext } from "react";
 
+
 export function FormSearch(){
 
-    const {listCards} = useContext(BlogContext)
+    const {listCards, getNameRepository, search} = useContext(BlogContext)
     const FormSearchValidationSchema = z.object({
         query: z.string(),
     })
-
+    
     type FormSearchValidationSchemaProps = z.infer<typeof FormSearchValidationSchema>
 
     const {handleSubmit, register} = useForm<FormSearchValidationSchemaProps>({
         resolver: zodResolver(FormSearchValidationSchema),
     })
 
-    function handleSearchForm(data:FormSearchValidationSchemaProps){
-        console.log(data)
+    async function handleSearchForm(data:FormSearchValidationSchemaProps){
+        getNameRepository(data.query)
     }
     return(
         <LayoutFormSearch>
             <HeaderFormSearch>
-                <strong>Publicações</strong>
-                <span>{listCards.length} publicações</span>
+                {
+                    !search ?
+                    <>
+                        <strong>Publicações</strong>
+                        <span>{listCards.length} publicações</span>
+                    </>
+                    :
+                    <>
+                        <strong>Publicações</strong>
+                        <span>1 publicação</span>
+                    </>
+                }
             </HeaderFormSearch>
             <form onSubmit={handleSubmit(handleSearchForm)}>
                 <InputFormSearch 

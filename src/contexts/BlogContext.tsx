@@ -1,5 +1,6 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { api } from "../lib/axios";
+import axios from "axios"
 
 interface ProfileData{
     name: string;
@@ -21,9 +22,11 @@ interface blogContextTypes{
     profile: ProfileData[];
     listCards: CardData[];
     repositoryId: number;
+    search: string;
     getApiGithubUser: ()=>Promise<void>;
     getApiGithubRepository: ()=>Promise<void>;
     getIdRepository: (chooseId: number)=>void;
+    getNameRepository: (query:string)=>Promise<void>;
 }
 
 export const BlogContext = createContext({} as blogContextTypes)
@@ -34,6 +37,7 @@ interface ProviderProps{
 
 export function BlogContextProvider({children}:ProviderProps){
     const [repositoryId, setRepositoryId] = useState(0);
+    const [search, setSearch] = useState("")
     const [profile, setProfile] = useState<ProfileData[]>([])
     const [listCards, setListCards] = useState<CardData[]>([])
     
@@ -65,9 +69,17 @@ export function BlogContextProvider({children}:ProviderProps){
         // )
     }
 
+    async function getNameRepository(query:string){
+        setSearch(query)
+    }
+
     function getIdRepository(chooseId: number){
         setRepositoryId(chooseId)
     }
+
+    useEffect(()=>{
+        getApiGithubRepository()
+    }, [])
 
     return(
         <BlogContext.Provider value={{
@@ -76,7 +88,9 @@ export function BlogContextProvider({children}:ProviderProps){
             profile,
             listCards,
             repositoryId,
+            search,
             getIdRepository,
+            getNameRepository,
         }}>
             {children}
         </BlogContext.Provider>
