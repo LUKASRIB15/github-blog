@@ -6,12 +6,7 @@ import { BlogContext } from "../../contexts/BlogContext"
 import { CardList, CardRepository, HeaderCard, LayoutMainHome, MainCard } from "./styles"
 
 export function Home(){
-    const {listCards, getApiGithubRepository, getIdRepository} = useContext(BlogContext)
-
-
-    useEffect(()=>{
-        getApiGithubRepository()
-    },[])
+    const {listCards, getIdRepository, search} = useContext(BlogContext)
 
     function handleGetIdRepository(id: number){
         getIdRepository(id)
@@ -21,23 +16,54 @@ export function Home(){
                 <Profile/>
                 <FormSearch/>
                 <CardList>
-                    {listCards.map(repository=>{
-                        return(
-                                <CardRepository key={repository.id}>
-                                    <NavLink to={"/RepositoryDetails/"+ repository.id} onClick={()=>handleGetIdRepository(repository.id)}>
-                                    <HeaderCard>
-                                        <strong>{repository.name}</strong>
-                                        <span>{repository.created_at}</span>
-                                    </HeaderCard>
-                                    <MainCard>
-                                        <p>
-                                        {repository.description} 
-                                        </p>
-                                    </MainCard>
-                                    </NavLink>
-                                </CardRepository>
-                        )
-                    })}
+                    {
+                        !search?
+                        <>
+                            {listCards.map(
+                                repository=>{
+                                    return(
+                                        <CardRepository key={repository.id}>
+                                            <NavLink to={"/RepositoryDetails/"+ repository.id} onClick={()=>handleGetIdRepository(repository.id)}>
+                                            <HeaderCard>
+                                                <strong>{repository.name}</strong>
+                                                <span>{repository.created_at}</span>
+                                            </HeaderCard>
+                                            <MainCard>
+                                                <p>
+                                                {repository.description} 
+                                                </p>
+                                            </MainCard>
+                                            </NavLink>
+                                        </CardRepository>
+                                )
+                                }
+                            )}
+                        </>
+                        :
+                        <>
+                            {listCards.map(
+                                repository=>{
+                                    if(repository.name==search){
+                                        return(
+                                            <CardRepository key={repository.id}>
+                                                <NavLink to={"/RepositoryDetails/"+ repository.id} onClick={()=>handleGetIdRepository(repository.id)}>
+                                                <HeaderCard>
+                                                    <strong>{repository.name}</strong>
+                                                    <span>{repository.created_at}</span>
+                                                </HeaderCard>
+                                                <MainCard>
+                                                    <p>
+                                                    {repository.description} 
+                                                    </p>
+                                                </MainCard>
+                                                </NavLink>
+                                            </CardRepository>
+                                    )
+                                    }
+                                }
+                            )}
+                        </>
+                    }
                 </CardList>
             </LayoutMainHome>
     )
