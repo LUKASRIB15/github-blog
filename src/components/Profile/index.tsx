@@ -15,7 +15,7 @@ export function Profile(){
         <>
         {profile.map(user=>{
             return(
-                <LayoutProfile>
+                <LayoutProfile key={user.avatar_url}>
             <aside>
                 <ImageProfile src={user.avatar_url}/>
             </aside>
