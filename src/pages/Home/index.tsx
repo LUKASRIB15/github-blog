@@ -23,7 +23,7 @@ export function Home(){
                 <CardList>
                     {listCards.map(repository=>{
                         return(
-                                <CardRepository>
+                                <CardRepository key={repository.id}>
                                     <NavLink to={"/RepositoryDetails/"+ repository.id} onClick={()=>handleGetIdRepository(repository.id)}>
                                     <HeaderCard>
                                         <strong>{repository.name}</strong>

@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
+import { api } from "../lib/axios";
 
 interface ProfileData{
     name: string;
@@ -20,7 +21,7 @@ interface blogContextTypes{
     profile: ProfileData[];
     listCards: CardData[];
     repositoryId: number;
-    getApiGithubUser: ()=>void;
+    getApiGithubUser: ()=>Promise<void>;
     getApiGithubRepository: ()=>Promise<void>;
     getIdRepository: (chooseId: number)=>void;
 }
@@ -35,24 +36,33 @@ export function BlogContextProvider({children}:ProviderProps){
     const [repositoryId, setRepositoryId] = useState(0);
     const [profile, setProfile] = useState<ProfileData[]>([])
     const [listCards, setListCards] = useState<CardData[]>([])
-    function getApiGithubUser(){
-        fetch("https://api.github.com/users/LUKASRIB15")
-        .then(
-            async responseUser =>{
-                const data = await responseUser.json();
-                setProfile([data])
-            }
-        )
+    
+    async function getApiGithubUser(){
+
+        const responseUser = await api.get("/LUKASRIB15");
+        setProfile([responseUser.data])
+        
+        // fetch("https://api.github.com/users/LUKASRIB15")
+        // .then(
+        //     async responseUser =>{
+        //         const data = await responseUser.json();
+        //         setProfile([data])
+        //     }
+        // )
     }
 
     async function getApiGithubRepository(){
-        await fetch("https://api.github.com/users/LUKASRIB15/repos")
-        .then(
-            async responseRepository=>{
-                const data = await responseRepository.json()
-                setListCards(data)
-            }
-        )
+
+        const responseRepository = await api.get("/LUKASRIB15/repos")
+        setListCards(responseRepository.data)
+
+        // await fetch("https://api.github.com/users/LUKASRIB15/repos")
+        // .then(
+        //     async responseRepository=>{
+        //         const data = await responseRepository.json()
+        //         setListCards(data)
+        //     }
+        // )
     }
 
     function getIdRepository(chooseId: number){
