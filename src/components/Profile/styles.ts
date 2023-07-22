@@ -66,6 +66,8 @@ export const LinkForGithub = styled.a`
   font-weight: bold;
   text-decoration: none;
   height: max-content;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom 0.2s;
 
   div {
     display: flex;

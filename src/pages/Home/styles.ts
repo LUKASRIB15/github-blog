@@ -44,4 +44,13 @@ export const RepositoryCardsContent = styled.main`
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
+
+  a {
+    color: ${(props) => props.theme['gray-50']};
+    text-decoration: none;
+
+    p {
+      color: ${(props) => props.theme['gray-200']};
+    }
+  }
 `
