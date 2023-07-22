@@ -19,7 +19,9 @@ export function Home() {
         <SearchInput type="text" placeholder="Buscar conteúdo" />
       </form>
       <RepositoryCardsContent>
-        <CardRepository />
+        <a href="/repository/gauyagwf">
+          <CardRepository />
+        </a>
         <CardRepository />
         <CardRepository />
         <CardRepository />
