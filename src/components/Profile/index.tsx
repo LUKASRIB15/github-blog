@@ -6,14 +6,17 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { InfoProfile, LinkForGithub, ProfileLayout } from './styles'
+import { useContext } from 'react'
+import { BlogContext } from '../../contexts/BlogContext'
 
 export function Profile() {
+  const { profile } = useContext(BlogContext)
   return (
     <ProfileLayout>
-      <img src="https://github.com/LUKASRIB15.png" alt="" />
+      <img src={profile.avatarUrl} alt="" />
       <InfoProfile>
         <div>
-          <strong>Lucas Ribeiro</strong>
+          <strong>{profile.name}</strong>
           <LinkForGithub href="https://github.com/LUKASRIB15">
             <div>
               github
@@ -21,22 +24,19 @@ export function Profile() {
             </div>
           </LinkForGithub>
         </div>
-        <p>
-          Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-          viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-          pulvinar vel mass.
-        </p>
+        <p>{profile.description}</p>
         <footer>
           <div>
             <FontAwesomeIcon icon={faGithub} />
-            LUKASRIB15
+            {profile.userName}
           </div>
           <div>
             <FontAwesomeIcon icon={faBuilding} />
             Estudante
           </div>
           <div>
-            <FontAwesomeIcon icon={faUserGroup} /> 9 seguidores
+            <FontAwesomeIcon icon={faUserGroup} /> {profile.followers}{' '}
+            seguidores
           </div>
         </footer>
       </InfoProfile>

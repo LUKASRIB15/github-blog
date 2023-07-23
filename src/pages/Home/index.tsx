@@ -1,3 +1,4 @@
+import { useForm } from 'react-hook-form'
 import { CardRepository } from '../../components/CardRepository'
 import { Profile } from '../../components/Profile'
 import {
@@ -6,27 +7,57 @@ import {
   RepositoryCardsContent,
   SearchInput,
 } from './styles'
+import * as zod from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useContext } from 'react'
+import { BlogContext } from '../../contexts/BlogContext'
+
+const searchFormValidationSchema = zod.object({
+  search: zod.string(),
+})
+
+type SearchFormInputs = zod.infer<typeof searchFormValidationSchema>
 
 export function Home() {
+  const { repositories } = useContext(BlogContext)
+
+  const { register, handleSubmit } = useForm<SearchFormInputs>({
+    resolver: zodResolver(searchFormValidationSchema),
+  })
+
+  function handleSearchRepository(data: SearchFormInputs) {
+    console.log(data)
+  }
+
+  console.log(repositories)
+
   return (
     <HomeLayout>
       <Profile />
       <InfoPublications>
         <strong>Publicações</strong>
-        <span>6 publicações</span>
+        <span>{repositories.length} publicações</span>
       </InfoPublications>
-      <form>
-        <SearchInput type="text" placeholder="Buscar conteúdo" />
+      <form onSubmit={handleSubmit(handleSearchRepository)}>
+        <SearchInput
+          type="text"
+          placeholder="Buscar conteúdo"
+          {...register('search')}
+          required
+        />
       </form>
       <RepositoryCardsContent>
-        <a href="/repository/gauyagwf">
-          <CardRepository />
-        </a>
-        <CardRepository />
-        <CardRepository />
-        <CardRepository />
-        <CardRepository />
-        <CardRepository />
+        {repositories.map((repository) => {
+          return (
+            <a href={`/repository/${repository.name}`} key={repository.name}>
+              <CardRepository
+                description={repository.description}
+                name={repository.name}
+                createdAt={repository.createdAt}
+              />
+            </a>
+          )
+        })}
       </RepositoryCardsContent>
     </HomeLayout>
   )
