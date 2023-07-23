@@ -11,6 +11,7 @@ export const CardLayout = styled.section`
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  height: 260px;
 
   transition: border 0.2s;
 
@@ -29,7 +30,6 @@ export const HeaderCard = styled.div`
   justify-content: space-between;
 
   h3 {
-    width: 283px;
     font-size: 1.25rem;
     line-height: 1.6;
   }
