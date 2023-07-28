@@ -11,6 +11,7 @@ import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useContext } from 'react'
 import { BlogContext } from '../../contexts/BlogContext'
+import { Link } from 'react-router-dom'
 
 const searchFormValidationSchema = zod.object({
   search: zod.string(),
@@ -49,13 +50,13 @@ export function Home() {
       <RepositoryCardsContent>
         {repositories.map((repository) => {
           return (
-            <a href={`/repository/${repository.name}`} key={repository.name}>
+            <Link to={`/repository/${repository.name}`} key={repository.name}>
               <CardRepository
                 description={repository.description}
                 name={repository.name}
                 createdAt={repository.createdAt}
               />
-            </a>
+            </Link>
           )
         })}
       </RepositoryCardsContent>
