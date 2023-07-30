@@ -9,9 +9,10 @@ import {
 } from './styles'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useContext } from 'react'
-import { BlogContext } from '../../contexts/BlogContext'
+import { useContext, useState } from 'react'
+import { BlogContext, RepositoryProps } from '../../contexts/BlogContext'
 import { Link } from 'react-router-dom'
+import { api } from '../../lib/api'
 
 const searchFormValidationSchema = zod.object({
   search: zod.string(),
@@ -20,17 +21,23 @@ const searchFormValidationSchema = zod.object({
 type SearchFormInputs = zod.infer<typeof searchFormValidationSchema>
 
 export function Home() {
-  const { repositories } = useContext(BlogContext)
+  const [repositorySearch, setRepositorySearch] = useState<RepositoryProps | null>(null)
 
-  const { register, handleSubmit } = useForm<SearchFormInputs>({
+  const { repositories} = useContext(BlogContext)
+
+  const { register, handleSubmit, reset } = useForm<SearchFormInputs>({
     resolver: zodResolver(searchFormValidationSchema),
   })
 
-  function handleSearchRepository(data: SearchFormInputs) {
-    console.log(data)
-  }
+  async function handleSearchRepository(data: SearchFormInputs) {
+    const response = await api.get(`/repos/LUKASRIB15/${data.search}`)
+    
+    setRepositorySearch({name: response.data.name,
+      description: response.data.description,
+      createdAt: response.data.created_at})
 
-  console.log(repositories)
+    reset()
+  }
 
   return (
     <HomeLayout>
@@ -44,21 +51,31 @@ export function Home() {
           type="text"
           placeholder="Buscar conteúdo"
           {...register('search')}
-          required
         />
       </form>
       <RepositoryCardsContent>
-        {repositories.map((repository) => {
-          return (
-            <Link to={`/repository/${repository.name}`} key={repository.name}>
+        {
+          repositorySearch == null ?
+          repositories.map((repository) => {
+            return (
+              <Link to={`/repository/${repository.name}`} key={repository.name}>
+                <CardRepository
+                  description={repository.description}
+                  name={repository.name}
+                  createdAt={repository.createdAt}
+                />
+              </Link>
+            )
+          })
+          :
+          <Link to={`/repository/${repositorySearch.name}`} key={repositorySearch.name}>
               <CardRepository
-                description={repository.description}
-                name={repository.name}
-                createdAt={repository.createdAt}
+                description={repositorySearch.description}
+                name={repositorySearch.name}
+                createdAt={repositorySearch.createdAt}
               />
-            </Link>
-          )
-        })}
+          </Link>
+        }
       </RepositoryCardsContent>
     </HomeLayout>
   )
