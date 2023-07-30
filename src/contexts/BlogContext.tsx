@@ -13,7 +13,7 @@ interface ProfileProps {
   userName: string
 }
 
-interface RepositoryProps {
+export interface RepositoryProps {
   name: string
   description: string
   createdAt: string
@@ -29,6 +29,7 @@ export const BlogContext = createContext({} as BlogContextProps)
 export function BlogContextProvider({ children }: BlogProviderProps) {
   const [repositories, setRepositories] = useState<RepositoryProps[]>([])
   const [profile, setProfile] = useState<ProfileProps>({} as ProfileProps)
+
 
   async function loadingProfile() {
     const response = await api.get('/users/LUKASRIB15')
