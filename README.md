@@ -1,4 +1,4 @@
-<h1 align="center">Coffee Delivery</h1>
+<h1 align="center">Github Blog</h1>
 
 O programa GithubBlog foi criado com o intuito de compreender como realizar consumo de API e melhoria de performance no React. A aplicação é um app onde temos meu próprio portifólio do github que está realizando requisições HTTP com o Github API.
 
